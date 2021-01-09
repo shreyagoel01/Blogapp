@@ -99,8 +99,9 @@ exports.create= async(req,res)=>{
         author:req.body.author,
         desc:req.body.desc
     });
+    let data;
     try{
-        newblog.save();
+        data= await newblog.save();
     }
     //console.log(newblog);
     catch(error)
@@ -108,7 +109,7 @@ exports.create= async(req,res)=>{
         if(err) return res.status(500).json(err);
     }
     
-    res.status(201).json({"msg":"created","blog":Blog});
+    res.status(201).json({"msg":"created","blog":data});
     
 }
 
