@@ -20,12 +20,17 @@ mongoose.connect(process.env.MONGO_URL,{ useNewUrlParser: true,
 app.get('/',(req,res)=>{
     res.send("Welcome to the class");
 });
+app.use('*',(req,res,next)=>
+{
+res.status(404).json({"mssg":"not found"});
+})
 
 //  app.get('/check',(req,res)=>{
 //    res.send("checking");
 //  })
 require('./routes/route')(app);
-const Port=3000;
+
+const Port=process.env.PORT||3000;
 
 app.listen(Port,(err)=>{
     if(err) console.log(err);
