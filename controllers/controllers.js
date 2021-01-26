@@ -9,14 +9,21 @@ exports.getall=async(req,res)=>{
     // .catch((err)=>{
     //     if(err) res.status(500).json(err);
     // });
-    let data;
-    try{
-         data=await Blog.find();
-         //console.log(data);
-    }catch(error){
-        if(err) res.status(500).json(err); 
-    }
-    res.status(200).json(data);
+    Blog.find().sort({updatedAt:'desc'})
+        .then((data)=>{
+            res.status(200).json(data);
+        })
+        .catch((err)=>{
+            if(err) res.status(500).json(err);
+        });
+    //let data;
+    // try{
+    //      data=await Blog.find();
+    //      //console.log(data);
+    // }catch(error){
+    //     if(err) res.status(500).json(err); 
+    // }
+    // res.status(200).json(data);
 }
 //find single blog by id using async await
 exports.getone=async(req,res)=>{
